@@ -1,0 +1,13 @@
+D:\repos\VideoDownloader\VideoDownloader\bin\Debug\VideoDownloader.exe.config
+D:\repos\VideoDownloader\VideoDownloader\bin\Debug\VideoDownloader.exe
+D:\repos\VideoDownloader\VideoDownloader\bin\Debug\VideoDownloader.pdb
+D:\repos\VideoDownloader\VideoDownloader\bin\Debug\WebDriver.dll
+D:\repos\VideoDownloader\VideoDownloader\bin\Debug\WebDriver.xml
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.csprojAssemblyReference.cache
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.Properties.Resources.resources
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.csproj.GenerateResource.cache
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.csproj.CoreCompileInputs.cache
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.csproj.CopyComplete
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.exe
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.pdb
+D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.Form1.resources
