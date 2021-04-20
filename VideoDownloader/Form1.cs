@@ -30,7 +30,7 @@ namespace VideoDownloader
             var movieName = searchBox.Text;
             if (String.IsNullOrEmpty(movieName))
             {
-                MessageBox.Show("Please End Movie Name you want to Search");
+                MessageBox.Show("Please Enter Movie Name you want to Search");
                 return;
             }
             
@@ -79,12 +79,13 @@ namespace VideoDownloader
             {
                 var xpath = $"//table[contains(@class, 'downloadsortsonlink')and thead[tr[th[1][translate(.,'{item.ToUpper()}','{item}')='{item}']]]]/tbody/tr";
                 providersComboBox.Items.Clear();
+                int i = 1;
                 foreach (var rowElement in cd.FindElements(By.XPath(xpath)))
-                {
+                { 
                     var provider = rowElement.FindElement(By.XPath("./td[1]"));
                     var size = rowElement.FindElement(By.XPath("./td[3]"));
-                    providersComboBox.Items.Add(new { Value = provider.Text, Text = $"{provider.Text} | {size.Text}" });
-
+                    providersComboBox.Items.Add(new { Value = i, Text = $"{provider.Text} | {size.Text}" });
+                    i++;
                 }
                 providersComboBox.DroppedDown = true;
 
@@ -169,6 +170,33 @@ namespace VideoDownloader
             cd.Manage().Timeouts().ImplicitWait = prevTimespan;
         }
 
-        
+        private void providersComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+               
+
+        }
+
+        private void downloadBtn_Click(object sender, EventArgs e)
+        {
+            string item = hostsComboBox.SelectedItem.ToString().ToLower();
+            if (String.IsNullOrEmpty(item))
+                return;
+            if (String.IsNullOrEmpty(renameTxtBox.Text))
+            {
+                MessageBox.Show("Please Enter Name");
+                return;
+            }
+            var provider = (providersComboBox.SelectedItem as dynamic);
+            if(provider != null)
+            {
+                var xpath = $"//table[contains(@class, 'downloadsortsonlink')and thead[tr[th[1][translate(.,'{item.ToUpper()}','{item}')='{item}']]]]/tbody/tr[{provider.Value}]/td[1]/a[.!='Streaming ']";
+                var url = cd.FindElement(By.XPath(xpath)).GetAttribute("href");
+                cd.Navigate().GoToUrl(url);
+                cd.FindElement(By.XPath("//input[@value='Continuer pour voir le lien']")).Click();
+                var downloadlink = cd.FindElement(By.XPath("//div[@class='alert']/a")).GetAttribute("href");
+            }
+
+
+        }
     }
 }

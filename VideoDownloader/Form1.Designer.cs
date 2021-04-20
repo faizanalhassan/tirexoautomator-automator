@@ -38,6 +38,10 @@
             this.hostsComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.providersComboBox = new System.Windows.Forms.ComboBox();
+            this.renameLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.renameTxtBox = new System.Windows.Forms.TextBox();
+            this.downloadBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // searchBox
@@ -126,21 +130,63 @@
             this.providersComboBox.Name = "providersComboBox";
             this.providersComboBox.Size = new System.Drawing.Size(589, 28);
             this.providersComboBox.TabIndex = 3;
-            this.providersComboBox.SelectedIndexChanged += new System.EventHandler(this.HostsComboBox_SelectedIndexChanged);
+            this.providersComboBox.SelectedIndexChanged += new System.EventHandler(this.providersComboBox_SelectedIndexChanged);
+            // 
+            // renameLabel
+            // 
+            this.renameLabel.AutoSize = true;
+            this.renameLabel.Location = new System.Drawing.Point(13, 318);
+            this.renameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.renameLabel.Name = "renameLabel";
+            this.renameLabel.Size = new System.Drawing.Size(59, 20);
+            this.renameLabel.TabIndex = 1;
+            this.renameLabel.Text = "Name: ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(177, 235);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(589, 28);
+            this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.providersComboBox_SelectedIndexChanged);
+            // 
+            // renameTxtBox
+            // 
+            this.renameTxtBox.Location = new System.Drawing.Point(177, 312);
+            this.renameTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.renameTxtBox.Name = "renameTxtBox";
+            this.renameTxtBox.Size = new System.Drawing.Size(509, 26);
+            this.renameTxtBox.TabIndex = 0;
+            // 
+            // downloadBtn
+            // 
+            this.downloadBtn.Location = new System.Drawing.Point(738, 307);
+            this.downloadBtn.Name = "downloadBtn";
+            this.downloadBtn.Size = new System.Drawing.Size(135, 37);
+            this.downloadBtn.TabIndex = 2;
+            this.downloadBtn.Text = "Download";
+            this.downloadBtn.UseVisualStyleBackColor = true;
+            this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 692);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.providersComboBox);
             this.Controls.Add(this.hostsComboBox);
             this.Controls.Add(this.movieResCombo);
+            this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.renameLabel);
             this.Controls.Add(this.searchBoxLbl);
+            this.Controls.Add(this.renameTxtBox);
             this.Controls.Add(this.searchBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -165,6 +211,10 @@
         private System.Windows.Forms.ComboBox hostsComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox providersComboBox;
+        private System.Windows.Forms.Label renameLabel;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox renameTxtBox;
+        private System.Windows.Forms.Button downloadBtn;
     }
 }
 

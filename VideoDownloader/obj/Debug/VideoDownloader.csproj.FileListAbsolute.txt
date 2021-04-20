@@ -11,3 +11,16 @@ D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.csproj.CopyCo
 D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.exe
 D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.pdb
 D:\repos\VideoDownloader\VideoDownloader\obj\Debug\VideoDownloader.Form1.resources
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\bin\Debug\VideoDownloader.exe.config
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\bin\Debug\VideoDownloader.exe
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\bin\Debug\VideoDownloader.pdb
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\bin\Debug\WebDriver.dll
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\bin\Debug\WebDriver.xml
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.csprojAssemblyReference.cache
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.Form1.resources
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.Properties.Resources.resources
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.csproj.GenerateResource.cache
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.csproj.CoreCompileInputs.cache
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.csproj.CopyComplete
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.exe
+C:\Users\Hassan\Desktop\tirexo\tirexoautomator-automator\VideoDownloader\obj\Debug\VideoDownloader.pdb
