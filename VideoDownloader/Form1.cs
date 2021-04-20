@@ -20,6 +20,7 @@ namespace VideoDownloader
     {
         IWebDriver cd;
         readonly string BASE_DIR = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        static string downloadlink;
         public Form1()
         {
             InitializeComponent();
@@ -88,6 +89,7 @@ namespace VideoDownloader
                     i++;
                 }
                 providersComboBox.DroppedDown = true;
+                renameTxtBox.Text = searchBox.Text;
 
             }
             catch (Exception ex)
@@ -101,6 +103,7 @@ namespace VideoDownloader
             RunChromeDriver();
             providersComboBox.DisplayMember = "Text";
             providersComboBox.ValueMember = "Value";
+            this.ActiveControl = searchBox;
 
         }
         private void RunChromeDriver()
@@ -146,8 +149,8 @@ namespace VideoDownloader
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            cd.Close();
             this.Hide();
+            cd.Close();
             cd.Quit();
         }
         private void LoadPage(string url)
@@ -167,36 +170,69 @@ namespace VideoDownloader
                 tryCount++;
                 Thread.Sleep(5000);
             }
+            while(cd.FindElements(By.XPath("//iframe[contains(@src, 'hcaptcha.com')]")).Count > 0)
+            {
+                var prevPosition = cd.Manage().Window.Position;
+                cd.Manage().Window.Position = new Point(0, 0);
+                MessageBox.Show("Please solve captcha and press ok.");
+                cd.Manage().Window.Position = prevPosition;
+                Thread.Sleep(1000);
+            }
             cd.Manage().Timeouts().ImplicitWait = prevTimespan;
         }
-
-        private void providersComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-               
-
-        }
-
+        
         private void downloadBtn_Click(object sender, EventArgs e)
         {
-            string item = hostsComboBox.SelectedItem.ToString().ToLower();
-            if (String.IsNullOrEmpty(item))
-                return;
-            if (String.IsNullOrEmpty(renameTxtBox.Text))
+            try
             {
-                MessageBox.Show("Please Enter Name");
-                return;
+                string item = hostsComboBox.SelectedItem.ToString().ToLower();
+
+                if (String.IsNullOrEmpty(item))
+                    return;
+                if (String.IsNullOrEmpty(renameTxtBox.Text))
+                {
+                    MessageBox.Show("Please Enter Name");
+                    return;
+                }
+                var provider = (providersComboBox.SelectedItem as dynamic);
+                if (provider == null)
+                {
+                    MessageBox.Show("Select valid provider");
+                    return;
+                }
+                if (!cd.Url.Contains("real-debrid.com"))
+                {
+                    cd.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                    var xpath = $"//table[contains(@class, 'downloadsortsonlink')and thead[tr[th[1][translate(.,'{item.ToUpper()}','{item}')='{item}']]]]/tbody/tr[{provider.Value}]/td[1]/a[.!='Streaming ']";
+                    var url = cd.FindElement(By.XPath(xpath)).GetAttribute("href");
+                    LoadPage(url);
+                    cd.FindElement(By.XPath("//input[@value='Continuer pour voir le lien']")).Click();
+                    downloadlink = cd.FindElement(By.XPath("//div[@class='alert']/a")).GetAttribute("href");
+                    LoadPage("https://real-debrid.com/");
+                }
+                cd.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+                while (cd.FindElements(By.XPath("//a[contains(@href, '/login.php')]")).Count > 0)
+                {
+                    var prevPosition = cd.Manage().Window.Position;
+                    cd.Manage().Window.Position = new Point(0, 0);
+                    MessageBox.Show("Please sign in to real-debrid and press ok.");
+                    cd.Manage().Window.Position = prevPosition;
+                    Thread.Sleep(1000);
+                }
+                cd.FindElement(By.CssSelector("#links")).SendKeys(downloadlink);
+                ((IJavaScriptExecutor)cd).ExecuteScript("document.querySelector('#sub_links').click();");
+                Thread.Sleep(3000); // TODO: is this needed ?
+                ((IJavaScriptExecutor)cd).ExecuteScript(
+                    "let a = document.evaluate(\"//div[@class='link-generated']/a[not(contains(., 'VISIONNER'))]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;" +
+                    @"let ext = /(\.\w{3}) \([\w\.]+\)$/.exec(a.innerText)[1];" +
+                    "a.download = arguments[0] + ext;" +
+                    "a.click();", renameTxtBox.Text);
             }
-            var provider = (providersComboBox.SelectedItem as dynamic);
-            if(provider != null)
+            catch (Exception ex)
             {
-                var xpath = $"//table[contains(@class, 'downloadsortsonlink')and thead[tr[th[1][translate(.,'{item.ToUpper()}','{item}')='{item}']]]]/tbody/tr[{provider.Value}]/td[1]/a[.!='Streaming ']";
-                var url = cd.FindElement(By.XPath(xpath)).GetAttribute("href");
-                cd.Navigate().GoToUrl(url);
-                cd.FindElement(By.XPath("//input[@value='Continuer pour voir le lien']")).Click();
-                var downloadlink = cd.FindElement(By.XPath("//div[@class='alert']/a")).GetAttribute("href");
+                MessageBox.Show($"Unexpected Error: {ex}");
             }
-
-
+            
         }
     }
 }
