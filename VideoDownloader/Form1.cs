@@ -20,6 +20,7 @@ namespace VideoDownloader
     {
         IWebDriver cd;
         readonly string BASE_DIR = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    
         static string downloadlink;
         public Form1()
         {
@@ -99,7 +100,7 @@ namespace VideoDownloader
             }
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
+        { 
             RunChromeDriver();
             providersComboBox.DisplayMember = "Text";
             providersComboBox.ValueMember = "Value";
@@ -116,6 +117,12 @@ namespace VideoDownloader
             chromeOptions.AddArgument("--ignore-certificate-errors");
             chromeOptions.AddArgument("--ignore-certificate-errors-spki-list");
             chromeOptions.AddArgument("--log-level=3");
+            var download_dir = $@"{BASE_DIR}\Download";
+            if (!Directory.Exists(download_dir))
+            {
+                DirectoryInfo download_folder = Directory.CreateDirectory(download_dir);
+            }
+            chromeOptions.AddUserProfilePreference("download.default_directory", download_dir);
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;
             cd = new ChromeDriver(chromeDriverService, chromeOptions);
@@ -227,6 +234,7 @@ namespace VideoDownloader
                     @"let ext = /(\.\w{3}) \([\w\.]+\)$/.exec(a.innerText)[1];" +
                     "a.download = arguments[0] + ext;" +
                     "a.click();", renameTxtBox.Text);
+
             }
             catch (Exception ex)
             {
